@@ -10,7 +10,7 @@ search.addEventListener("keypress", (e) => {
 
 const fetchApi = async (searchInput) => {
   try {
-    const url = `http://192.168.192.30:5000/?search=${searchInput}`;
+    const url = `https://api-doodsearch-js.vercel.app/?search=${searchInput}`;
     const header = {
       method: "GET",
       headers: {
