@@ -14,16 +14,16 @@ btnMenu.addEventListener("click", () => {
 
 const containerVideo = document.getElementById("containerVideo");
 
-containerVideo.addEventListener("click", async (e) => {
-  if (e.target.classList.contains("divClick")) {
-    const urlVideo = await findUrl(e.target.id);
-    window.location.href = urlVideo;
+containerVideo.addEventListener('click', async (e) => {
+  if(e.target.classList.contains('divClick')){
+    const urlVideo = await findUrl(e.target.id)
+    displayVideo(urlVideo)
   }
-});
+})
 
 const findUrl = async (token) => {
   try {
-    const url = `https://api-doodsearch-js.vercel.app/video/?token=${token}`;
+    const url = `http://192.168.235.123:5000/video/?token=${token}`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -36,4 +36,12 @@ const findUrl = async (token) => {
   } catch (error) {
     console.error("Error:", error);
   }
-};
+}
+
+const displayVideo = (url) => {
+  const iframe = document.createElement("iframe");
+  iframe.src = url;
+  iframe.allow = "fullscreen";
+  containerVideo.innerHTML = "";
+  containerVideo.appendChild(iframe);
+}
