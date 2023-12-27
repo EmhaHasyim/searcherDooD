@@ -17,7 +17,7 @@ const containerVideo = document.getElementById("containerVideo");
 containerVideo.addEventListener("click", async (e) => {
   if (e.target.classList.contains("divClick")) {
     const urlVideo = await findUrl(e.target.id);
-    window.open(urlVideo, "_blank");
+    window.location.href = urlVideo;
   }
 });
 
