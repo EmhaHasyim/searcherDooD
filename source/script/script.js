@@ -17,7 +17,7 @@ const containerVideo = document.getElementById("containerVideo");
 containerVideo.addEventListener("click", async (e) => {
   if (e.target.classList.contains("divClick")) {
     const urlVideo = await findUrl(e.target.id);
-    displayVideo(urlVideo);
+    window.open(urlVideo, "_blank");
   }
 });
 
@@ -36,23 +36,4 @@ const findUrl = async (token) => {
   } catch (error) {
     console.error("Error:", error);
   }
-};
-
-const displayVideo = (url) => {
-  containerVideo.innerHTML = ""
-  const videoContainer = document.createElement("div");
-  videoContainer.classList.add("max-w-lg", "mx-auto");
-  const video = document.createElement("video");
-  video.classList.add("w-full");
-  video.setAttribute("controls", "");
-  const source = document.createElement("source");
-  source.setAttribute("src", url);
-  source.setAttribute("type", "video/mp4");
-  const fallbackText = document.createTextNode(
-    "Your browser does not support the video tag."
-  );
-  video.appendChild(source);
-  video.appendChild(fallbackText);
-  videoContainer.appendChild(video);
-  containerVideo.appendChild(videoContainer);
 };
