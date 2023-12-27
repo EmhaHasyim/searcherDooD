@@ -8,8 +8,14 @@ search.addEventListener("keypress", (e) => {
 
 async function fetchApi(searchInput) {
   try {
-    const url = `https://api-doodsearch-js.vercel.app/?search=${searchInput}`;
-    const response = await fetch(url);
+    const url = `http://192.168.192.30:5000/?search=${searchInput}`;
+    const header = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    };
+    const response = await fetch(url, header);
 
     if (!response.ok) {
       throw new Error();
