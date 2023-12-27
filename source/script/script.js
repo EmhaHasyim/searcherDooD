@@ -23,7 +23,7 @@ containerVideo.addEventListener('click', async (e) => {
 
 const findUrl = async (token) => {
   try {
-    const url = `http://192.168.235.123:5000/video/?token=${token}`;
+    const url = `https://api-doodsearch-js.vercel.app/video/?token=${token}`;
     const response = await fetch(url);
 
     if (!response.ok) {
