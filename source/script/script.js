@@ -14,8 +14,45 @@ btnMenu.addEventListener("click", () => {
 
 const containerVideo = document.getElementById("containerVideo");
 
-containerVideo.addEventListener('click', (e) => {
-  if(e.target.classList.contains('divClick')){
-    window.location.href = `https://doodstream.com/dl?token=${e.target.id}&op=view_vdo&_=0`;
+containerVideo.addEventListener("click", async (e) => {
+  if (e.target.classList.contains("divClick")) {
+    const urlVideo = await findUrl(e.target.id);
+    displayVideo(urlVideo);
   }
-})
+});
+
+const findUrl = async (token) => {
+  try {
+    const url = `https://api-doodsearch-js.vercel.app/video/?token=${token}`;
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error();
+    }
+
+    const results = await response.json();
+    console.log(results);
+    return results;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+const displayVideo = (url) => {
+  containerVideo.innerHTML = ""
+  const videoContainer = document.createElement("div");
+  videoContainer.classList.add("max-w-lg", "mx-auto");
+  const video = document.createElement("video");
+  video.classList.add("w-full");
+  video.setAttribute("controls", "");
+  const source = document.createElement("source");
+  source.setAttribute("src", url);
+  source.setAttribute("type", "video/mp4");
+  const fallbackText = document.createTextNode(
+    "Your browser does not support the video tag."
+  );
+  video.appendChild(source);
+  video.appendChild(fallbackText);
+  videoContainer.appendChild(video);
+  containerVideo.appendChild(videoContainer);
+};
